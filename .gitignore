@@ -27,3 +27,11 @@ dist-ssr
 .env
 .env.production
 
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Generated Vite config files
+vite.config.js
+vite.config.d.ts
+

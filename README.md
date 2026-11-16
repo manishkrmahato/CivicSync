@@ -1,66 +1,64 @@
-# CivicSync: Civic Issue Reporting & Resolution Platform
+# CivicSync
+## A Community-Driven Smart Civic Issue Reporting and Resolution System
 
-CivicSync is a civic infrastructure platform for municipal governance and public service delivery. Built with React, TypeScript, Vite, Tailwind CSS, shadcn/ui primitives, and Supabase PostgreSQL with PostGIS.
+CivicSync is a responsive classroom demonstration prototype based on the supplied project abstract and the 11 documented use cases. It demonstrates the complete complaint lifecycle through citizen, municipal official and public transparency views.
 
----
+## What is implemented
 
-## 1. Quick Start Guide
+| Use case | Demonstration behaviour |
+|---|---|
+| UC-01 Authenticate User | Demo sign-in, citizen registration, sign-out and role-specific views |
+| UC-02 Report Civic Issue | Validated complaint form with title, description and category |
+| UC-03 Upload Location and Evidence | Address, ward, coordinates, browser geolocation and optional evidence image |
+| UC-04 Manage Complaint | Search, filter, inspect complaints and view activity history |
+| UC-05 Verify Civic Issue | One positive or negative verification per demo user; cannot verify own report |
+| UC-06 Detect Duplicate Complaint | Same-category reports within 75 metres are flagged for review |
+| UC-07 Vote and Prioritize Issue | One active vote per demo user; priority recalculates as votes increase |
+| UC-08 Assign Complaint to Department | Category-based department recommendation and official assignment |
+| UC-09 Track Deadline and Escalate | Category-based SLA deadline, countdown and overdue escalation simulation |
+| UC-10 View Transparency Dashboard | Complaint totals, resolution rate, category breakdown and department performance |
+| UC-11 Update Status and Resolve Issue | Status history; resolution requires remarks and a proof photo |
 
-### Prerequisites
-- Node.js 18+ (tested on v24.19)
-- npm 9+
+## Run locally
 
-### Installation & Local Setup
+Requirements: Node.js 18+ and npm.
+
+1. Extract the project ZIP.
+2. Open a terminal in the project folder.
+3. Run:
+
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Configure Environment Variables
-# Copy the template to .env
-cp .env.example .env
-
-# Populate with your Supabase project keys:
-# VITE_SUPABASE_URL=https://[your-project-ref].supabase.co
-# VITE_SUPABASE_ANON_KEY=eyJhbGciOi...
-
-# 3. Start Development Server
 npm run dev
-
-# 4. Run Test Suite
-npm test
-
-# 5. Build for Production
-npm run build
 ```
 
----
+4. Open the local URL printed by Vite.
 
-## 2. Project Architecture & Standards
+## Demo access
 
-- **Design Philosophy:** Minimalist editorial civic technology, warm neutral backgrounds (`stone-50` canvas), deep forest green accents (`#1B4332`), and monospace tabular numerals (`tabular-nums`).
-- **Strict TypeScript:** `noImplicitAny: true` and `strict: true` across all domain models.
-- **Row Level Security (RLS):** All data access is strictly governed by PostgreSQL RLS.
-- **Zero Mock Data:** If Supabase credentials are missing, the UI gracefully prompts for configuration instead of fabricating fake data or bypassing authentication.
+- Citizen: `manish@civicsync.demo` / `Manish@123`
+- Municipal official: `official@civicsync.demo` / `Civic@123`
+- Public visitor: `public@civicsync.demo` / `Civic@123`
 
----
+The sign-in screen also provides one-click demo access. New registrations create citizen demo accounts.
 
-## 3. Pre-Configured Demo Accounts
+## Build for deployment
 
-Standard email/password accounts configured in Supabase to test role-based access:
+```bash
+npm run build
+npm run preview
+```
 
-| Role | Email | Password | Allowed Access |
-| :--- | :--- | :--- | :--- |
-| **Citizen** | `citizen@civicsync.org` | `CivicSync@2026` | Citizen Portal (`/citizen`), Issue reporting &amp; community verification |
-| **Official** | `official@civicsync.org` | `CivicSync@2026` | Official Operations Console (`/official`), Triage, Duplicate review &amp; routing |
-| **Dept Staff** | `roads.dept@civicsync.org` | `CivicSync@2026` | Official Operations Console (`/official`), Field status updates &amp; resolution |
+## Important prototype scope
 
----
+This version is designed for a self-contained classroom demonstration. Demo accounts and complaint records are stored in the current browser's `localStorage`. Changes persist after refresh in that browser, but are not synchronized between different devices or browsers. The public/official/citizen role switch is a demonstration convenience, not production authentication.
 
-## 4. Implementation Phasing
+The 75-metre duplicate check uses browser-side distance calculation. SLA deadlines and escalations are simulated in the browser. Evidence and resolution images are stored as browser data URLs and are subject to browser storage limits. The prototype does not send data to a municipal server or Supabase.
 
-- **Batch 1 (Completed):** Foundation, Editorial Design System & Authentication Layer (`UC-01`).
-- **Batch 2 (Next):** Issue Reporting Engine, Leaflet Geolocation & Photographic Evidence (`UC-02`, `UC-03`).
-- **Batch 3:** Community Verification, PostGIS Proximity Deduplication & Prioritization (`UC-05`, `UC-06`, `UC-07`).
-- **Batch 4:** Official Triage Console, Department Routing & SLA Escalation (`UC-04`, `UC-08`, `UC-09`, `UC-11`).
-- **Batch 5:** Public Transparency Dashboard, Recharts Analytics & Production Deployment (`UC-10`).
+For production deployment, connect the reviewed Supabase/PostGIS schema, enforce authorization and business rules server-side, configure scheduled escalation, and use private storage policies. Do not use the demo credentials for real users.
 
+## Project team
+
+- L. Manideep
+- M. Srikuthi
+- M. Manish (Manish Mahato)
